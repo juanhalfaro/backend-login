@@ -14,12 +14,19 @@ app.use(bodyparser.urlencoded({
 app.use(bodyparser.json())
 
 //Conexion a BD
-
+const url = `mongodb+srv://juanh:juanh@cluster0clashroyal:clashroyal@cluster0.xocs9s6.mongodb.net/?retryWrites=true&w=majority`
+mongoose.connect(url,{
+    useNewUrlparser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('Conectado a la BD'))
+        .catch((error) => console.log('error conexion:' +error))
 
 //Importar las rutas
-
+const authRoutes = require('./routes/auth')
 
 //Ruta para el Middleware
+app.use('/api/user', authRoutes)
+
 app.get('/', (req, res) =>{
     res.json({
         estado: true,
