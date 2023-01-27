@@ -20,5 +20,23 @@ router.post('/register', async (req, res) =>{
     }
 })
 
+router.get('/getalusers', async (req, res) => {
+    try{
+    const users = await User.find().then(() => {
+        return{
+            message:"Usuarios",
+            data: users
+        }
+    })
+}catch (error) {
+    res.json({
+        message:"Error",
+        error
+    })      
+}
+    console.log('usuarios', users)
+})
+
 
 module.exports = router 
+
